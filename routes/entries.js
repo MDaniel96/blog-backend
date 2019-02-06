@@ -9,11 +9,11 @@ module.exports = app => {
         createEntry
     );
         
-    app.put('/entry',
+    app.put('/entry/:id',
         updateEntry
     );
 
-    app.delete('/entry',
+    app.delete('/entry/:id',
         deleteEntry
     );
 

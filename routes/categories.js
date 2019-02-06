@@ -9,11 +9,11 @@ module.exports = app => {
         createCategory
     );
         
-    app.put('/category',
+    app.put('/category/:id',
         updateCategory  
     );
 
-    app.delete('/category',
+    app.delete('/category/:id',
         deleteCategory
     );
 
