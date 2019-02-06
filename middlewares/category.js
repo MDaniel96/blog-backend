@@ -1,6 +1,3 @@
-const Entry = require('../models/entry');
-const Category = require('../models/category');
-
 
 module.exports.createCategory = (req, res, next) => {
     console.log('creating cat');
