@@ -27,7 +27,6 @@ module.exports.updateEntry = (req, res, next) => {
     }) 
 };
 
-
 module.exports.deleteEntry = (req, res, next) => {
     mysqlConnection.query('DELETE FROM Entry WHERE EntryID = ?', [req.params.id], (err, rows, fields) => {
         if (rows.affectedRows == 0) 
@@ -76,4 +75,24 @@ module.exports.removeCategoryFromEntry = (req, res, next) => {
             res.status(500).send(err);
         }
     })  
+};
+
+module.exports.listEntriesByLabel = (req, res, next) => {
+    var sql = 'select e.EntryID, e.title, e.created, e.modified from entry e ' + 
+                    'inner join entriescategories ec on e.EntryID = ec.EntryID ' +
+                        'inner join category c on ec.CategoryID = c.CategoryID ' +
+                            'inner join categorieslabels cl on c.CategoryID = cl.CategoryID ' + 
+                                'inner join label l on cl.LabelID = l.LabelID ' +
+                 'where l.labelName = ?;';
+
+    mysqlConnection.query(sql, [req.params.label], (err, rows, fields) => {       
+        if (!err) {
+            if (rows.length == 0)
+                return res.status(404).send("There's no such entry!");
+            res.status(200).send(rows);
+        }
+        else {
+            res.status(500).send(err);
+        }
+   })   
 };
