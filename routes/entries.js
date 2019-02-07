@@ -1,7 +1,9 @@
 const createEntry = require('../middlewares/entry').createEntry;
 const updateEntry = require('../middlewares/entry').updateEntry;
 const deleteEntry = require('../middlewares/entry').deleteEntry;
-const checkIfEntryExists = require('../middlewares/entry').checkIfEntryExists;
+const addCategoryToEntry = require('../middlewares/entry').addCategoryToEntry;
+const checkEntryCategoryPairs = require('../middlewares/entry').checkEntryCategoryPairs;
+const removeCategoryFromEntry = require('../middlewares/entry').removeCategoryFromEntry;
 
 
 module.exports = app => {
@@ -11,13 +13,20 @@ module.exports = app => {
     );
         
     app.put('/entry/:id',
-        checkIfEntryExists,
         updateEntry
     );
 
     app.delete('/entry/:id',
-        checkIfEntryExists,
         deleteEntry
+    );
+
+    app.post('/entry/:entryId/add/:categoryId',
+        checkEntryCategoryPairs,
+        addCategoryToEntry
+    );
+
+    app.delete('/entry/:entryId/remove/:categoryId',
+        removeCategoryFromEntry
     );
 
 };

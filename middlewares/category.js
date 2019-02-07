@@ -16,6 +16,8 @@ module.exports.createCategory = (req, res, next) => {
 module.exports.updateCategory = (req, res, next) => {
     mysqlConnection.query('UPDATE Category SET categoryName = ?, labelList = ? WHERE CategoryID = ?',
      [req.body.categoryName, req.body.labelList, req.params.id], (err, rows, fields) => {
+        if (rows.affectedRows == 0) 
+            return res.status(404).send('Category not found!');
         if (!err) 
             res.status(200).send('Update successful!');
         else {
@@ -27,6 +29,8 @@ module.exports.updateCategory = (req, res, next) => {
 
 module.exports.deleteCategory = (req, res, next) => {
     mysqlConnection.query('DELETE FROM Category WHERE CategoryID = ?', [req.params.id], (err, rows, fields) => {
+        if (rows.affectedRows == 0) 
+            return res.status(404).send('Category not found!');
         if (!err) 
             res.status(200).send('Delete successful!');
         else {
@@ -34,15 +38,4 @@ module.exports.deleteCategory = (req, res, next) => {
             res.status(500).send(err);
         }
     }) 
-};
-
-module.exports.checkIfCategoryExists = (req, res, next) => {
-    mysqlConnection.query('SELECT * FROM Category WHERE CategoryID = ?',
-    [req.params.id], (err, rows, fields) => {
-       if (err) 
-           return res.status(500).send(err);
-       else if (rows.length == 0) 
-           return res.status(404).send("Category not found!");
-        return next();  
-   })   
 };
