@@ -245,6 +245,43 @@
         }
       }
     },
+    "/entry/search/{label}": {
+      "get": {
+        "tags": [
+          "entry"
+        ],
+        "summary": "Search entries by their label",
+        "description": "",
+        "operationId": "searchEntry",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "label",
+            "in": "path",
+            "description": "Label to search for",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entries found"
+          },
+          "404": {
+            "description": "Entries not found"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
+    },
     "/category": {
       "post": {
         "tags": [
@@ -408,8 +445,20 @@
         },
         "categoryName": {
           "type": "string"
+        }
+      }
+    },
+    "Label": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "LabelId": {
+          "type": "integer",
+          "format": "int64"
         },
-        "labelList": {
+        "labelName": {
           "type": "string"
         }
       }
