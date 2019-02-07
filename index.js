@@ -9,5 +9,6 @@ app.use(bodyparser.json());
 require('./routes/entries')(app);
 require('./routes/categories')(app);
 
-app.listen(port, () => console.log('Listening on port 3000.') );
+app.listen(port, () => console.log('Listening on port 3000.') ); 
 
+module.exports = app;
