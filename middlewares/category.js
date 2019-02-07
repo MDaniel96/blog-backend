@@ -35,3 +35,14 @@ module.exports.deleteCategory = (req, res, next) => {
         }
     }) 
 };
+
+module.exports.checkIfCategoryExists = (req, res, next) => {
+    mysqlConnection.query('SELECT * FROM Category WHERE CategoryID = ?',
+    [req.params.id], (err, rows, fields) => {
+       if (err) 
+           return res.status(500).send(err);
+       else if (rows.length == 0) 
+           return res.status(404).send("Category not found!");
+        return next();  
+   })   
+};

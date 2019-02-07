@@ -102,6 +102,9 @@
           "200": {
             "description": "Update successful"
           },
+          "404": {
+            "description": "Entry not found"
+          },
           "500": {
             "description": "Error"
           }
@@ -142,6 +145,9 @@
         "responses": {
           "200": {
             "description": "Delete successful"
+          },
+          "404": {
+            "description": "Entry not found"
           },
           "500": {
             "description": "Error"
@@ -221,6 +227,9 @@
           "200": {
             "description": "Update successful"
           },
+          "404": {
+            "description": "Category not found"
+          },
           "500": {
             "description": "Error"
           }
@@ -261,6 +270,9 @@
         "responses": {
           "200": {
             "description": "Delete successful"
+          },
+          "404": {
+            "description": "Category not found"
           },
           "500": {
             "description": "Error"
