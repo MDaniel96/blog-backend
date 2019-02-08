@@ -406,6 +406,49 @@
           }
         }
       }
+    },
+    "/category/addLabel/{id}": {
+      "post": {
+        "tags": [
+          "category"
+        ],
+        "summary": "Insert a label to an existing category",
+        "description": "",
+        "operationId": "insertLabel",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Label to be inserted",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Label"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of existing category",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Add successful"
+          },
+          "500": {
+            "description": "Error"
+          }
+        }
+      }
     }
   },
   "definitions": {

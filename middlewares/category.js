@@ -2,8 +2,8 @@ const mysqlConnection = require('../config');
 
 
 module.exports.createCategory = (req, res, next) => {
-    mysqlConnection.query('INSERT INTO Category (categoryName, labelList) VALUES (?)',
-     [[req.body.categoryName, req.body.labelList]], (err, rows, fields) => {
+    mysqlConnection.query('INSERT INTO Category (categoryName) VALUES (?)',
+     [[req.body.categoryName]], (err, rows, fields) => {
         if (!err) 
             res.status(200).send('InsertedId: ' + rows.insertId);
         else {
@@ -14,8 +14,8 @@ module.exports.createCategory = (req, res, next) => {
 };
 
 module.exports.updateCategory = (req, res, next) => {
-    mysqlConnection.query('UPDATE Category SET categoryName = ?, labelList = ? WHERE CategoryID = ?',
-     [req.body.categoryName, req.body.labelList, req.params.id], (err, rows, fields) => {
+    mysqlConnection.query('UPDATE Category SET categoryName = ? WHERE CategoryID = ?',
+     [req.body.categoryName, req.params.id], (err, rows, fields) => {
         if (rows.affectedRows == 0) 
             return res.status(404).send('Category not found!');
         if (!err) 
@@ -39,3 +39,29 @@ module.exports.deleteCategory = (req, res, next) => {
         }
     }) 
 };
+
+module.exports.addNewLabel = (req, res, next) => {
+    mysqlConnection.query('INSERT INTO Label (labelName) VALUES (?)',
+     [[req.body.labelName]], (err, rows, fields) => {
+        if (!err) {
+            req.newId = rows.insertId;
+            next();
+        }
+        else {
+            console.log(err);
+            return res.status(500).send(err);
+        } 
+    })
+}; 
+
+module.exports.addNewLabelToCategory = (req, res, next) => {
+    mysqlConnection.query('INSERT INTO CategoriesLabels VALUES (?)',
+     [[req.params.id, req.newId]], (err, rows, fields) => {
+        if (!err) 
+            res.status(200).send('Insert successful, inserted LabelId: ' + req.newId);
+        else {
+            console.log(err);
+            res.status(500).send(err);
+        }
+    })  
+}; 
