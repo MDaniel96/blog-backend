@@ -1,0 +1,130 @@
+Use EntryDB; 
+
+ CREATE TABLE entry (
+	EntryID int not null auto_increment,
+	Title VARCHAR(20) default null unique,
+	Content VARCHAR(200) default null,
+    Created DATE default null,
+    Modified DATE default null,
+    primary key (EntryID)
+) auto_increment=0;  
+
+insert into entry (Title, Content, Created, Modified)
+			values('Hidegrol', 'Ma 0 fok van es holnap is ennyi lesz..', '2009-07-04', '2008-07-04'); 
+            
+insert into entry (Title, Content, Created, Modified)
+			values('Erdokrol', 'Sok erdo boritja a hegyet..', '2013-07-04', '2015-07-04');
+            
+insert into entry (Title, Content, Created, Modified)
+			values('CsendesOcean', 'A csendes ocean hideg...', '1996-07-04', '2015-07-04');
+            
+insert into entry (Title, Content, Created, Modified)
+			values('Programozasrol', 'A programozas nagyon keresett manapsag..', '2014-07-04', '2018-07-04');
+            
+insert into entry (Title, Content, Created, Modified)
+			values('JavaScript', 'A weboldalak javascriptben irodnak..', '2017-07-04', '2018-07-04');
+            
+insert into entry (Title, Content, Created, Modified)
+			values('Adatbazisok', 'Az sql fontos eleme az adatbazisoknak..', '2010-07-04', '2011-07-04'); 
+            
+		
+
+CREATE TABLE category (
+	CategoryID int not null auto_increment,
+	categoryName VARCHAR(20) default null,
+    primary key (CategoryID)
+) auto_increment=0;  
+
+insert into category (categoryName)
+			values('Termeszet'); 
+            
+insert into category (categoryName)
+			values('Idojaras'); 
+            
+insert into category (categoryName)
+			values('IT');  
+            
+insert into category (categoryName)
+			values('Etelek');  
+            
+insert into category (categoryName)
+			values('TVmusorok');  
+            
+insert into category (categoryName)
+			values('Allatok');  
+            
+            
+            
+CREATE TABLE EntriesCategories (
+	EntryID int not null, 
+	CategoryID int not null,
+    primary key (EntryID, CategoryID),
+    foreign key (EntryID) references Entry(EntryID),
+    foreign key (CategoryID) references Category(CategoryID)
+); 
+
+insert into EntriesCategories values (1, 1); 
+insert into EntriesCategories values (2, 1);
+insert into EntriesCategories values (3, 1);
+insert into EntriesCategories values (4, 3); 
+insert into EntriesCategories values (5, 3);
+insert into EntriesCategories values (6, 3);
+
+
+ 
+ CREATE TABLE label (
+	LabelID int not null auto_increment, 
+	labelName VARCHAR(10) default null,
+    primary key (LabelID)
+)auto_increment=0;  
+
+insert into label (labelName)
+			values('c++'); 
+
+insert into label (labelName)
+			values('c11'); 
+            
+insert into label (labelName)
+			values('java');
+            
+insert into label (labelName)
+			values('js');
+            
+insert into label (labelName)
+			values('css');
+            
+insert into label (labelName)
+			values('turazas');
+            
+insert into label (labelName)
+			values('hegyek');
+            
+insert into label (labelName)
+			values('patak');
+            
+insert into label (labelName)
+			values('turacipo');  
+            
+            
+            
+CREATE TABLE CategoriesLabels (
+	CategoryID int not null,
+    LabelID int not null,
+    primary key (CategoryID, LabelID),
+    foreign key (CategoryID) references Category(CategoryID),
+    foreign key (LabelID) references Label(LabelID)
+); 
+
+insert into CategoriesLabels values (3, 1); 
+insert into CategoriesLabels values (3, 2);
+insert into CategoriesLabels values (3, 3);
+insert into CategoriesLabels values (3, 4);
+insert into CategoriesLabels values (3, 5);
+insert into CategoriesLabels values (1, 6);
+insert into CategoriesLabels values (1, 7);
+insert into CategoriesLabels values (1, 8);
+insert into CategoriesLabels values (1, 9);
+ 
+ 
+ 
+ 
